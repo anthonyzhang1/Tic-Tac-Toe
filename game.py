@@ -1,9 +1,10 @@
 """Handles the game's logic."""
 
-from graphics import BOARD_SIZE, Graphics
 from itertools import cycle
 from typing import NamedTuple
 
+BOARD_SIZE = 3
+"""The number of rows and columns in the board."""
 EMPTY_SQUARE = ""
 """Represents an empty square, i.e. a square with no piece in it."""
 
@@ -24,20 +25,20 @@ class Square(NamedTuple):
     """The piece in the square. The value EMPTY_SQUARE means the square is empty."""
 
 PLAYERS = (
-    Player(piece="X", colour="white"),
-    Player(piece="O", colour="black"),
+    Player(piece="X", colour="blue"),
+    Player(piece="O", colour="red"),
 )
 """The players in the game, and their pieces and colours."""
 
 class Game:
     """Handles the game's logic."""
     def __init__(self, players=PLAYERS, board_size=BOARD_SIZE):
-        """Initializes the game."""
+        """Initializes the game and its logic."""
         self._players = cycle(players)  # iterates through `players` in a cycle
         """The players in the game."""
         self.board_size = board_size
         """The size of the playing board, i.e. the number of rows and columns it has."""
-        self.current_player = next(self._players)
+        self.current_player: Player = next(self._players)
         """The player whose turn it is."""
         self.winner_combination = []
         """The combination of squares that defines the winner."""
@@ -119,11 +120,3 @@ class Game:
     def switch_player(self):
         """Switches the current player to the next player."""
         self.current_player = next(self._players)
-
-def main():
-    """Create the game's GUI and run its main loop."""
-    GUI = Graphics()
-    GUI.mainloop()
-
-if __name__ == "__main__":
-    main()
