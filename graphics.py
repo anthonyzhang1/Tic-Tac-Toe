@@ -7,7 +7,7 @@ import tkinter as tk
 class Graphics(tk.Tk):
     """Handles the display of the GUI window, and the label and board within."""
     def __init__(self, game: Game):
-        """Initializes the GUI window, the label, and the board."""
+        """Initializes the game's graphics and logic."""
         super().__init__()
         self.title("Tic-tac-toe")  # Title of the window
         self._squares = {}
@@ -23,7 +23,7 @@ class Graphics(tk.Tk):
         # The label shown above the board
         self.display = tk.Label(
             master=display_frame,
-            text="X, make the first move!", # Initial text in the label
+            text="Make the first move!", # Initial text in the label
             font=font.Font(size=20, weight="bold"),
         )
 
@@ -45,7 +45,7 @@ class Graphics(tk.Tk):
                     text="",
                     font=font.Font(size=40, weight="bold"),  # Determines the size of the squares
                     fg="black",
-                    width=3,
+                    width=4,
                     height=2,
                     highlightbackground="lightblue",
                 )
@@ -56,8 +56,6 @@ class Graphics(tk.Tk):
                 button.grid(
                     row=row,
                     column=column,
-                    padx=5,
-                    pady=5,
                     sticky="NSEW"
                 )
 
@@ -93,11 +91,11 @@ class Graphics(tk.Tk):
             self._game.process_move(move)  # Processes the move and checks if there is a winner
 
             if self._game.is_tied():  # If the game is tied
-                self._update_label(message="The game is a tie!", colour="brown")
+                self._update_label(message="The game is a tie!", colour="green")
 
             elif self._game.has_winner():  # If the game has a winner
                 self._highlight_winning_squares()  # Highlights the winning squares
-                message = f'"{self._game.current_player.piece}" won!'
+                message = f"{self._game.current_player.piece} won!"
                 message_colour = self._game.current_player.colour
 
                 self._update_label(message, message_colour)
