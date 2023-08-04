@@ -75,7 +75,7 @@ class Game:
 
         return rows + columns + [down_right_diagonal, down_left_diagonal]
     
-    def is_valid_move(self, move):
+    def is_valid_move(self, move: Square):
         """
         A move is valid if the selected square is empty, and the game is not over.
         Returns True if the move is valid, and False otherwise.
@@ -85,7 +85,7 @@ class Game:
 
         return square_is_empty and game_is_not_over
     
-    def process_move(self, move):
+    def process_move(self, move: Square):
         """Process the move played and check if it is a win."""
         self._current_squares[move.row][move.column] = move  # Update the list of squares with the new move
 
@@ -120,3 +120,14 @@ class Game:
     def switch_player(self):
         """Switches the current player to the next player."""
         self.current_player = next(self._players)
+
+    def reset_game(self):
+        """Resets the game state so a new game can be played."""
+        # Clears all the pieces from the board by replacing each square on the board with a new, empty square
+        for row, row_content in enumerate(self._current_squares):
+            for col, _ in enumerate(row_content):
+                row_content[col] = Square(row, col)
+        
+        # Resets variables related to the game's winner
+        self._has_winner = False
+        self.winner_combination = []
