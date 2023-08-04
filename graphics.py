@@ -106,7 +106,7 @@ class Graphics(tk.Tk):
         row, column = self._squares[clicked_button]  # The row and column of the clicked button
         move = Square(row, column, self._game.current_player.piece)  # Create a move from the button clicked
 
-        # If the move is invalid, do not do anything
+        # If the move is invalid, do nothing
         if not self._game.is_valid_move(move):
             return
 
